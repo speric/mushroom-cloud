@@ -1,1 +1,12 @@
-GitHub page for mushroom-cloud
+---
+layout: layout
+title: "Mushroom Cloud - A Training Log"
+---
+
+<h2>Workouts&nbsp;<img src="/assets/images/rss.png" border="0"/></a></h2>
+{% for post in site.posts %}
+<div class="row-fluid">
+  <div class="span8"><p><a href="{{ post.url }}">{{ post.title }}</a></p></div>
+  <div class="span4" align="right"><p>{{ post.date | date: "%B %e, %Y" }}</p></div>
+</div> 
+{% endfor %}
