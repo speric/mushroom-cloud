@@ -16,8 +16,10 @@ wod_date  = Date.parse("#{date_from_sheet[2]}-#{date_from_sheet[0]}-#{date_from_
 wod       = row[1]
 notes     = row[2]
 
-g = Git.init
-g.branch('gh-pages').checkout
+#g = Git.init
+#g.branch('gh-pages').checkout
+
+system("git checkout gh-pages")
 
 File.open("_posts/#{wod_date.strftime('%Y-%m-%d')}-workout.markdown", 'w') do |workout|  
   workout.puts wod
@@ -25,8 +27,12 @@ File.open("_posts/#{wod_date.strftime('%Y-%m-%d')}-workout.markdown", 'w') do |w
   workout.puts notes
 end
 
-g.add(".")
-g.commit("Workout for #{wod_date.strftime('%Y-%m-%d')}")
-g.push
-
+#g.add(".")
+#g.commit("Workout for #{wod_date.strftime('%Y-%m-%d')}")
+#g.push
 #g.branch('master').checkout
+
+system("git add .")
+system("git commit", "-a -m", "Workout for #{wod_date.strftime('%Y-%m-%d')}")
+system("git push origin gh-pages")
+system("git checkout master")
