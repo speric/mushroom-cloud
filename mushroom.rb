@@ -13,7 +13,8 @@ date_from_sheet = row[0].split("/")
 
 wod_date  = Date.parse("#{date_from_sheet[2]}-#{date_from_sheet[0]}-#{date_from_sheet[1]}")
 wod       = row[1]
-notes     = row[2]
+result    = row[2]
+notes     = row[3]
 
 system("git checkout gh-pages")
 
@@ -24,12 +25,12 @@ File.open("_posts/#{wod_date.strftime('%Y-%m-%d')}-workout-for-#{wod_date.strfti
   workout.puts "---"
   workout.puts "<p><b>Workout</b></p><p>#{wod.gsub(/\n/, '<br>')}</p>"
   workout.puts "<br/>"
-  workout.puts "<p><b>Result</b></p><p>#{wod.gsub(/\n/, '<br>')}</p>"
+  workout.puts "<p><b>Result</b></p><p>#{result.gsub(/\n/, '<br>')}</p>"
   workout.puts "<br/>"
-  workout.puts "<p><b>Notes</b> #{notes}"
+  workout.puts "<p><b>Notes</b> #{notes.gsub(/\n/, '<br>')}"
 end
 
 system("git add .")
-system("git commit", "-a -m", "Workout for #{wod_date.strftime('%Y-%m-%d')}")
+system("git commit", "-am", "Workout for #{wod_date.strftime('%Y-%m-%d')}")
 system("git push origin gh-pages")
 system("git checkout master")
