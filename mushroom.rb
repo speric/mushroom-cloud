@@ -27,6 +27,6 @@ end
 
 g.add(".")
 g.commit("Workout for #{wod_date.strftime('%Y-%m-%d')}")
-g.push(g.branch("gh-pages"))
+g.push
 
-g.branch('master').checkout
+#g.branch('master').checkout
