@@ -21,10 +21,12 @@ File.open("_posts/#{wod_date.strftime('%Y-%m-%d')}-workout-for-#{wod_date.strfti
   workout.puts "---"
   workout.puts "layout: post"
   workout.puts "title: #{wod_date.strftime('%B %d, %Y')}"
-  #workout.puts "---"
-  workout.puts "workout: #{wod.gsub(/\n/, '<br>')}"
-  #workout.puts "<br/>"
-  workout.puts "notes: #{notes}"
+  workout.puts "---"
+  workout.puts "<p><b>Workout</b></p><p>#{wod.gsub(/\n/, '<br>')}</p>"
+  workout.puts "<br/>"
+  workout.puts "<p><b>Result</b></p><p>#{wod.gsub(/\n/, '<br>')}</p>"
+  workout.puts "<br/>"
+  workout.puts "<p><b>Notes</b> #{notes}"
 end
 
 system("git add .")
