@@ -8,8 +8,25 @@ session = GoogleDrive.login(GDRIVE_CONFIG['username'], GDRIVE_CONFIG['password']
 
 sheet = session.spreadsheet_by_key(GDRIVE_CONFIG['spreadsheet_key']).worksheets[0]
 
-# Gets content of A2 cell.y, x
-puts sheet[2, 2]  #==> "hoge"
+row = sheet.rows[1]
 
-# Yet another way to do so.
-#p sheet.rows  #==> [["fuga", ""], ["foo", "bar]]
+date_from_sheet = row[0].split("/")
+
+wod_date  = Date.parse("#{date_from_sheet[2]}-#{date_from_sheet[0]}-#{date_from_sheet[1]}")
+wod       = row[1]
+notes     = row[2]
+
+g = Git.init
+g.branch('gh-pages').checkout
+
+File.open("_posts/#{wod_date.strftime('%Y-%m-%d')}-workout.markdown", 'w') do |workout|  
+  workout.puts wod
+  workout.puts "<br/>"
+  workout.puts notes
+end
+
+g.add(".")
+g.commit("Workout for #{wod_date.strftime('%Y-%m-%d')}")
+g.push(g.branch("gh-pages"))
+
+g.branch('master').checkout
